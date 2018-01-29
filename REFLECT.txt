@@ -1,0 +1,68 @@
+Name: Andy Nguyen and Zuzu Tang
+NetID: aln20 and zt26
+Hours Spent: 5
+Consulted With: Zuzu Tang
+Resources Used: NONE 
+Impressions: Very interesting!
+----------------------------------------------------------------------
+Problem 1: Describe testing: Provide an overview for how you tested your HuffProcessor. 
+Describe any input files you used or created. Were there any special cases you considered?
+Answer: We used HuffMain to test our code. We began by compressing hidden1.txt.unhf and decompressing hidden1.txt.hf. Then, we compared hidden1.txt.hf and hidden1.txt.unhf.hf
+to make sure both files were the same. We discovered that depending on the text files used (we performed the same testing procedure with the other files),
+we had to use either HUFF_TREE or HUFF_NUMBER in the compress method. A special case we considered was if the compressed file was larger or equal in size
+than the original file. This special case happens when we try to compress a file multiple times and the file ends up not compressing.
+
+Problem 2: Benchmark and analyze your code: Benchmark your code on the given calgary and waterloo directories. 
+Develop a hypothesis from your code and empirical data for how the compression rate and time depend on file 
+length and alphabet size. Note that you will have to add a line or two of code to determine the size of the alphabet.
+Answer:
+Calgary 
+Total original length: 3226253 bytes
+Total new length: 181455 bytes
+Percent space saved: 43.7%
+
+Waterloo
+Total original length: 14761384 bytes
+Total new length: 11666269 bytes
+Percent space saved: 20.97%
+
+For text files such as those in calgary, file size does not affect compression rate. For example, book2.txt has a size of about 610 kB and a compression rate of 40.99%, 
+while geo.txt has a size of about 102 kB and a compression rate of about 40.20%. This is because the texts are all in English, and English usually has the same 
+distribution of letters (i.e. vowels). In addition, the time it takes to compress a file decreases as the file's size decreases. Alphabet size is the number
+of unique characters in a file. For images such as those in Waterloo, compression time is longer when alphabet size is larger because there is a higher range of rbg values.
+For example, the alphabet size for bird is 155, while horiz's is 24. Compression rate is also higher for horiz for similar reasons. A smaller alphabet size means it's
+easier to compress.
+
+
+Problem 3: Text vs. Binary: Do text files or binary (image) files compress more (compare the calgary (text) and 
+waterloo (image) folders)? Explain why.
+
+Answer:
+The average percent saved was about 43.76% for text files. Then, we got the following data from testing random text files in calgary.
+369 kb --> 34.62% saved
+93 kb --> 32.4% saved
+82 kb --> 41.91& saved
+What we learned from this was that all the text files save about the same amount of space. This is because the texts are all in English, and English usually has the same 
+distribution of letters. This is different from how compress works with images. Some data is below.
+262 kb --> 7.59% saved (manlin)
+65 kb --> 85.44% saved (horiz)
+This is because of how pixels work. Each pixel is a combination of 3 numbers representing red, blue, and green values. 
+This is apparent in the data above because the horiz photo has either black or white colors, which are easier to represent 
+in numbers. On the other hand, the manlin image has a lot of gray values that make the file harder to compress. 
+
+Overall, however, we found that text files compressed more than binary files, as we can see from the data presented in question 2. 
+This is because images can be expressed in 3 colors: red, green, and blue (each expressed in 8 bits). This means that any color 
+can be expressed in 24 bits. However, for letters, there are 26 letters of the alphabet, including other symbols. Each of these 
+can be expressed in 8 bits, so in total, there are over 26*8 bits for any given unit of text. Because there are fewer bits for 
+color than bits for text, image files are less compressible than text files.
+	
+Problem 4: Compressing compressed files: How much additional compression can be achieved by compressing an already 
+compressed file? Explain why Huffman coding is or is not effective after the first compression.
+Answer: 
+We compressed the kjv10.txt file multiple times and determined that at a certain point, it will no longer compress. The first time 
+we compressed the orignial kjv10.txt file, the percent space saved was 42.72%. The second time we compressed kjv10.txt.hf file the 
+percent space saved was 1.51%. Then, the third time we compressed kjv10.txt.hf.hf the percent space saved was -0.04%. Therefore, 
+the Huffman coding is pretty effective after the first compression, but not at proceeding compressions. We can check this by
+compressing a different text file melville.txt. The percent saved for the first compression was 43.62%. The next compression saved 
+only 0.65%. The third compression saved only -0.66%. Therefore, Huffman is only efficient for large file sizes. As such, Huffman 
+is minimally effective after the first compression. 
